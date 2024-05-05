@@ -1,5 +1,5 @@
 name: NuGet Push
-run-name: NuGet Push - {{ github.event.inputs.project_name }} v${{ github.event.inputs.version_number }}
+run-name: NuGet Push - ${{ github.event.inputs.project_name }} v${{ github.event.inputs.version_number }}
 
 on:
   workflow_dispatch:
