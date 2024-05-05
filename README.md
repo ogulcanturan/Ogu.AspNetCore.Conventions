@@ -27,7 +27,7 @@ dotnet add package Ogu.AspNetCore.Conventions
 ```csharp
 public virtual void ConfigureServices(IServiceCollection services)
 {
-	...
+    ...
     services.AddControllers().AddMvcOptions(opts =>
     {
         // To configure with params => [Authorize(AuthenticationSchemes = "", Policy = "", Roles = "")]
@@ -41,7 +41,7 @@ public virtual void ConfigureServices(IServiceCollection services)
         // to use default => [Authorize]
         opts.Conventions.AddControllerAuthorizeConvention<LauncherController>();
     });
-	...
+    ...
 }
 ```
 
@@ -49,12 +49,12 @@ public virtual void ConfigureServices(IServiceCollection services)
 ```csharp
  public virtual void ConfigureServices(IServiceCollection services)
  {
-	...
+    ...
     services.AddControllers().AddMvcOptions(opts =>
     {
         opts.Conventions.AddControllerDisableConvention<LauncherController>();
     });
-	...
+    ...
  }
 ```
 
@@ -62,11 +62,11 @@ public virtual void ConfigureServices(IServiceCollection services)
 ```csharp
 public virtual void ConfigureServices(IServiceCollection services)
 {
-	...
+    ...
     services.AddControllers().AddMvcOptions(opts =>
     {
         opts.Conventions.AddControllerRoutePrefixConvention<LauncherController>("api/launcher");
     });
-	...
+    ...
 }
 ```
