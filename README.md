@@ -21,6 +21,7 @@ You can install the library via NuGet Package Manager:
 ```bash
 dotnet add package Ogu.AspNetCore.Conventions
 ```
+
 ## Usage
 
 **ControllerAuthorizeConvention:**
