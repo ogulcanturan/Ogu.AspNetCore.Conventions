@@ -1,4 +1,4 @@
-# Ogu.AspNetCore.Conventions
+# <img src="logo/ogu-logo.png" alt="Header" width="24"/> Ogu.AspNetCore.Conventions
 
 [![.NET](https://github.com/ogulcanturan/Ogu.AspNetCore.Conventions/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/ogulcanturan/Ogu.AspNetCore.Conventions/actions/workflows/dotnet.yml)
 [![NuGet](https://img.shields.io/nuget/v/Ogu.AspNetCore.Conventions.svg?color=1ecf18)](https://nuget.org/packages/Ogu.AspNetCore.Conventions)
