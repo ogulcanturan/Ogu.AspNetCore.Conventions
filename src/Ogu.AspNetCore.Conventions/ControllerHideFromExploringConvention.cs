@@ -7,23 +7,23 @@ using System.Reflection;
 
 namespace Ogu.AspNetCore.Conventions
 {
-    public class ControllerDisableConvention : IControllerModelConvention
+    public class ControllerHideFromExploringConvention : IControllerModelConvention
     {
         private readonly HashSet<Type> _controllerTypes;
         private readonly bool _inherit;
 
-        public ControllerDisableConvention(Type controllerType, bool inherit = true)
+        public ControllerHideFromExploringConvention(Type controllerType, bool inherit = true)
             : this(new Type[] { controllerType }, inherit) { }
 
-        public ControllerDisableConvention(Assembly assembly, bool inherit = true)
+        public ControllerHideFromExploringConvention(Assembly assembly, bool inherit = true)
             : this(assembly.GetTypes().Where(type => type.GetCustomAttribute(typeof(ControllerAttribute)) != null), inherit) { }
 
-        public ControllerDisableConvention(IEnumerable<Type> controllerTypes, bool inherit = true)
+        public ControllerHideFromExploringConvention(IEnumerable<Type> controllerTypes, bool inherit = true)
         {
             _controllerTypes = new HashSet<Type>(controllerTypes);
             _inherit = inherit;
         }
-
+    
         public void Apply(ControllerModel controller)
         {
             if ((!_inherit || _controllerTypes.Any(type => !type.IsAssignableFrom(controller.ControllerType))) && !_controllerTypes.Contains(controller.ControllerType))
@@ -32,11 +32,6 @@ namespace Ogu.AspNetCore.Conventions
             }
 
             controller.ApiExplorer.IsVisible = false;
-            controller.Actions.Clear();
-            controller.Selectors.Clear();
-            controller.ControllerProperties.Clear();
-            controller.Filters.Clear();
-            controller.Properties.Clear();
         }
     }
 }
