@@ -13,21 +13,12 @@ namespace Ogu.AspNetCore.Conventions
         private static string GetInvalidControllerType(string controllerName) => $"{controllerName} does not inherit from Controller.";
         private const string InvalidControllerType = "One or more types do not inherit from Controller.";
 
-        public static void AddControllerRoutePrefixConvention<TController>(
-            this IList<IApplicationModelConvention> conventions,
-            string routePrefix,
-            Action<ControllerRoutePrefixOptions> configureOptions = null,
-            bool inherit = true)
+        public static void AddControllerRoutePrefixConvention<TController>(this IList<IApplicationModelConvention> conventions, string routePrefix, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, new[] { typeof(TController) }, routePrefix, configureOptions, inherit);
         }
 
-        public static void AddControllerRoutePrefixConvention(
-            this IList<IApplicationModelConvention> conventions,
-            Type controllerType,
-            string routePrefix,
-            Action<ControllerRoutePrefixOptions> configureOptions = null,
-            bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Type controllerType, string routePrefix, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, new[] { controllerType }, routePrefix, configureOptions, inherit);
         }
