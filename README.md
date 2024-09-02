@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Ogu.AspNetCore.Conventions is a library which comprising three essential conventions that can be configured in the IMvcBuilder.
+Ogu.AspNetCore.Conventions is a library which comprising four essential conventions that can be configured in the IMvcBuilder.
 
 ## Conventions
 
