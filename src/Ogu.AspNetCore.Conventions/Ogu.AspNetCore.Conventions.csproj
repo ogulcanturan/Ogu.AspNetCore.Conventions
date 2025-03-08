@@ -18,7 +18,8 @@
 	<PackageIcon>ogu-logo.png</PackageIcon>
 	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<NeutralLanguage>en</NeutralLanguage>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
 	<AssemblyOriginatorKeyFile>Ogu.AspNetCore.Conventions.snk</AssemblyOriginatorKeyFile>
 	<SignAssembly>true</SignAssembly>
   </PropertyGroup>
