@@ -2,6 +2,9 @@
 
 namespace Sample.Api.Controllers
 {
+    [Route("no-route")]
+    [Route("api/no-route/v2")]
+
     public class NoRouteController : ControllerBase
     {
         [HttpGet]

@@ -12,9 +12,8 @@ namespace Ogu.AspNetCore.Conventions
     /// </summary>
     public class ControllerRoutePrefixConvention : IControllerModelConvention
     {
-        private readonly AttributeRouteModel _routePrefix;
-        private readonly bool _combineRoutes;
-        private readonly RouteCombinationStrategy _combinationStrategy;
+        private readonly AttributeRouteModel[] _routePrefixes;
+        private readonly ControllerRoutePrefixOptions _routePrefixOptions;
         private readonly HashSet<Type> _controllerTypes;
         private readonly bool _inherit;
 
@@ -23,39 +22,72 @@ namespace Ogu.AspNetCore.Conventions
         /// with a specified route prefix, combination strategy, and a single controller type.
         /// </summary>
         /// <param name="routePrefix">The route prefix to apply.</param>
-        /// <param name="combineRoutes">Indicates whether routes should be combined.</param>
-        /// <param name="combinationStrategy">The strategy for combining routes.</param>
+        /// <param name="routePrefixOptions">The route prefix options.</param>
         /// <param name="controllerType">The controller type to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(string routePrefix, bool combineRoutes, RouteCombinationStrategy combinationStrategy, Type controllerType, bool inherit = true) 
-            : this(routePrefix, combineRoutes, combinationStrategy, new Type[] { controllerType }, inherit) { }
+        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixOptions routePrefixOptions, Type controllerType, bool inherit = true)
+            : this(routePrefix, routePrefixOptions, new[] { controllerType }, inherit) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
+        /// with a specified route prefix, combination strategy, and a single controller type.
+        /// </summary>
+        /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
+        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="controllerType">The controller type to apply the route prefix to.</param>
+        /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
+        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixOptions routePrefixOptions, Type controllerType, bool inherit = true)
+            : this(routePrefixes, routePrefixOptions, new[] { controllerType }, inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
         /// with a specified route prefix, combination strategy, and all controllers in an assembly.
         /// </summary>
         /// <param name="routePrefix">The route prefix to apply.</param>
-        /// <param name="combineRoutes">Indicates whether routes should be combined.</param>
-        /// <param name="combinationStrategy">The strategy for combining routes.</param>
         /// <param name="assembly">The assembly containing controllers to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(string routePrefix, bool combineRoutes, RouteCombinationStrategy combinationStrategy, Assembly assembly, bool inherit = true)
-            : this(routePrefix, combineRoutes, combinationStrategy, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
+        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixOptions routePrefixOptions, Assembly assembly, bool inherit = true)
+            : this(routePrefix, routePrefixOptions, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
+        /// with a specified route prefix, combination strategy, and all controllers in an assembly.
+        /// </summary>
+        /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
+        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="assembly">The assembly containing controllers to apply the route prefix to.</param>
+        /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
+        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixOptions routePrefixOptions, Assembly assembly, bool inherit = true)
+            : this(routePrefixes, routePrefixOptions, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
         /// with a specified route prefix, combination strategy, and multiple controller types.
         /// </summary>
         /// <param name="routePrefix">The route prefix to apply.</param>
-        /// <param name="combineRoutes">Indicates whether routes should be combined.</param>
-        /// <param name="combinationStrategy">The strategy for combining routes.</param>
+        /// <param name="routePrefixOptions">The route prefix options.</param>
         /// <param name="controllerTypes">The collection of controller types to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(string routePrefix, bool combineRoutes, RouteCombinationStrategy combinationStrategy, IEnumerable<Type> controllerTypes, bool inherit = true)
+        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixOptions routePrefixOptions, IEnumerable<Type> controllerTypes,
+            bool inherit = true) : this(new[] { routePrefix },
+            routePrefixOptions, controllerTypes, inherit) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
+        /// with multiple route prefixes and controller types.
+        /// </summary>
+        /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
+        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="controllerTypes">The controller types to apply the route prefixes to.</param>
+        /// <param name="inherit">Whether to include inherited controllers. Default is <c>true</c>.</param>
+        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixOptions routePrefixOptions, IEnumerable<Type> controllerTypes, bool inherit = true)
         {
-            _routePrefix = new AttributeRouteModel(new RouteAttribute(routePrefix));
-            _combineRoutes = combineRoutes;
-            _combinationStrategy = combinationStrategy;
+            _routePrefixes = routePrefixes
+                .Select(prefix => new AttributeRouteModel(new RouteAttribute(prefix)))
+                .ToArray();
+
+            _routePrefixOptions = routePrefixOptions;
+
             _controllerTypes = new HashSet<Type>(controllerTypes);
             _inherit = inherit;
         }
@@ -67,13 +99,109 @@ namespace Ogu.AspNetCore.Conventions
                 return;
             }
 
-            foreach (var selector in controller.Selectors)
+            switch (_routePrefixOptions.ConventionStrategy)
             {
-                selector.AttributeRouteModel = selector.AttributeRouteModel == null || !_combineRoutes
-                    ? _routePrefix 
-                    : _combinationStrategy == RouteCombinationStrategy.Left 
-                        ? AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel)
-                        : AttributeRouteModel.CombineAttributeRouteModel(selector.AttributeRouteModel, _routePrefix);
+                case RoutePrefixConventionStrategy.Add:
+
+                    ApplyAddStrategy(controller);
+
+                    break;
+
+                case RoutePrefixConventionStrategy.Combine:
+
+                    ApplyCombineStrategy(controller);
+
+                    break;
+
+                case RoutePrefixConventionStrategy.Remove:
+
+                    ApplyRemoveStrategy(controller);
+
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void ApplyAddStrategy(ControllerModel controller)
+        {
+            var existingTemplates = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            var duplicates = controller.Selectors
+                .Where(s => s.AttributeRouteModel != null)
+                .Select(s =>
+                {
+                    existingTemplates.Add(s.AttributeRouteModel.Template);
+
+                    return s.AttributeRouteModel.Template;
+                })
+                .GroupBy(x => x, StringComparer.OrdinalIgnoreCase)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
+
+            if (duplicates.Count > 0)
+            {
+                throw new ConflictingRoutesException(duplicates);
+            }
+
+            foreach (var routePrefix in _routePrefixes.Where(r => !existingTemplates.Contains(r.Template)))
+            {
+                var selector = new SelectorModel
+                {
+                    AttributeRouteModel = routePrefix
+                };
+
+                if (_routePrefixOptions.ShouldApplyTo(controller, selector))
+                {
+                    controller.Selectors.Add(selector);
+                }
+            }
+        }
+
+        private void ApplyRemoveStrategy(ControllerModel controller)
+        {
+            var distinctPrefixes = new HashSet<string>(_routePrefixes.Select(r => r.Template), StringComparer.OrdinalIgnoreCase);
+
+            for (var i = controller.Selectors.Count - 1; i >= 0; i--)
+            {
+                var selector = controller.Selectors[i];
+                
+                if (selector.AttributeRouteModel != null && distinctPrefixes.Contains(selector.AttributeRouteModel.Template) && _routePrefixOptions.ShouldApplyTo(controller, selector))
+                {
+                    controller.Selectors.RemoveAt(i);
+                }
+            }
+        }
+
+        private void ApplyCombineStrategy(ControllerModel controller)
+        {
+            var templates = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            HashSet<string> duplicates = null;
+
+            foreach (var routePrefix in _routePrefixes)
+            {
+                foreach (var selector in controller.Selectors.Where(sel => sel.AttributeRouteModel != null && _routePrefixOptions.ShouldApplyTo(controller, sel)))
+                {
+                    selector.AttributeRouteModel =
+                        _routePrefixOptions.CombinationStrategy == RoutePrefixCombinationStrategy.Left
+                            ? AttributeRouteModel.CombineAttributeRouteModel(routePrefix, selector.AttributeRouteModel)
+                            : AttributeRouteModel.CombineAttributeRouteModel(selector.AttributeRouteModel, routePrefix);
+
+                    if (templates.Add(selector.AttributeRouteModel.Template))
+                    {
+                        continue;
+                    }
+
+                    duplicates = duplicates ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                    duplicates.Add(selector.AttributeRouteModel.Template);
+                }
+            }
+
+            if (duplicates?.Count > 0)
+            {
+                throw new ConflictingRoutesException(duplicates);
             }
         }
     }
