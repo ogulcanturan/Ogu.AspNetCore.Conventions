@@ -44,6 +44,7 @@ namespace Ogu.AspNetCore.Conventions
         /// with a specified route prefix, combination strategy, and all controllers in an assembly.
         /// </summary>
         /// <param name="routePrefix">The route prefix to apply.</param>
+        /// <param name="routePrefixConventionOptions">The route prefix options.</param>
         /// <param name="assembly">The assembly containing controllers to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
         public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, Assembly assembly, bool inherit = true)
