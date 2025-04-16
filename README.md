@@ -71,10 +71,9 @@ public virtual void ConfigureServices(IServiceCollection services)
     });
     ...
 }
+```
 
 For more advanced scenarios, check the [Advanced Usage Of Controller Route Prefix Convention](docs/advanced-usage-of-controller-route-prefix-convention.md).
-
-```
 
 **ControllerHideFromExploringConvention:**
 ```csharp
