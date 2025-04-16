@@ -56,7 +56,7 @@ opts.Conventions.AddControllerRoutePrefixConvention(typeof(NoRouteController), "
     prefixOptions.ShouldApplyTo = (_, selector) =>
         !VersionChecker.HasVersionPrefix(selector.AttributeRouteModel!.Template);
 });
-```csharp
+```
 
 - Use When: You want to prepend or append route prefixes to existing routes.  
 - CombinationStrategy:  
