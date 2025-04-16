@@ -23,14 +23,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <typeparam name="TController">The controller type.</typeparam>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="routePrefix">The route prefix to apply.</param>
         /// <param name="configureOptions">Optional configuration for route prefix behavior.</param>
         /// <param name="inherit">Determines whether inherited controllers should also receive the prefix.</param>
-        public static void AddControllerRoutePrefixConvention<TController>(this IList<IApplicationModelConvention> conventions, string routePrefix, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention<TController>(this IList<IApplicationModelConvention> conventions, string routePrefix, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, new[] { typeof(TController) }, routePrefix, configureOptions, inherit);
         }
@@ -41,14 +41,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <typeparam name="TController">The controller type.</typeparam>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
         /// <param name="configureOptions">Optional configuration for route prefix behavior.</param>
         /// <param name="inherit">Determines whether inherited controllers should also receive the prefix.</param>
-        public static void AddControllerRoutePrefixConvention<TController>(this IList<IApplicationModelConvention> conventions, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention<TController>(this IList<IApplicationModelConvention> conventions, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, new[] { typeof(TController) }, routePrefixes, configureOptions, inherit);
         }
@@ -59,14 +59,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="controllerType">The type of the controller.</param>
         /// <param name="routePrefix">The route prefix to be added.</param>
         /// <param name="configureOptions">Optional action to configure route prefix options.</param>
         /// <param name="inherit">Indicates whether to inherit route prefix.</param>
-        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Type controllerType, string routePrefix, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Type controllerType, string routePrefix, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, new[] { controllerType }, routePrefix, configureOptions, inherit);
         }
@@ -77,14 +77,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="controllerType">The type of the controller.</param>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
         /// <param name="configureOptions">Optional action to configure route prefix options.</param>
         /// <param name="inherit">Indicates whether to inherit route prefix.</param>
-        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Type controllerType, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Type controllerType, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, new[] { controllerType }, routePrefixes, configureOptions, inherit);
         }
@@ -95,14 +95,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="controllerTypes">The list of controller types.</param>
         /// <param name="routePrefix">The route prefix to be added.</param>
         /// <param name="configureOptions">Optional action to configure route prefix options.</param>
         /// <param name="inherit">Indicates whether to inherit route prefix.</param>
-        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, IEnumerable<Type> controllerTypes, string routePrefix, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, IEnumerable<Type> controllerTypes, string routePrefix, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, controllerTypes, new[] { routePrefix }, configureOptions, inherit);
         }
@@ -113,14 +113,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="controllerTypes">The list of controller types.</param>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
         /// <param name="configureOptions">Optional action to configure route prefix options.</param>
         /// <param name="inherit">Indicates whether to inherit route prefix.</param>
-        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, IEnumerable<Type> controllerTypes, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, IEnumerable<Type> controllerTypes, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             if (conventions == null)
             {
@@ -134,7 +134,7 @@ namespace Ogu.AspNetCore.Conventions
                 throw new ArgumentException(InvalidControllerType);
             }
 
-            var options = new ControllerRoutePrefixOptions();
+            var options = new ControllerRoutePrefixConventionOptions();
             configureOptions?.Invoke(options);
 
             conventions.Add(new ControllerRoutePrefixConvention(
@@ -150,14 +150,14 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="assembly">The assembly containing the controllers.</param>
         /// <param name="routePrefix">The route prefix to be added.</param>
         /// <param name="configureOptions">Optional action to configure route prefix options.</param>
         /// <param name="inherit">Indicates whether to inherit route prefix.</param>
-        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Assembly assembly, string routePrefix, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Assembly assembly, string routePrefix, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             AddControllerRoutePrefixConvention(conventions, assembly, new[] { routePrefix }, configureOptions, inherit);
         }
@@ -168,21 +168,21 @@ namespace Ogu.AspNetCore.Conventions
         /// <remarks>
         /// The default strategy used is <see cref="RoutePrefixConventionStrategy.Add"/>.  
         /// To use a different strategy (e.g., <c>Remove</c> or <c>Combine</c>), configure it via 
-        /// <see cref="ControllerRoutePrefixOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
+        /// <see cref="ControllerRoutePrefixConventionOptions.ConventionStrategy"/> using the <paramref name="configureOptions"/> callback.
         /// </remarks>
         /// <param name="conventions">The list of application model conventions.</param>
         /// <param name="assembly">The assembly containing the controllers.</param>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
         /// <param name="configureOptions">Optional action to configure route prefix options.</param>
         /// <param name="inherit">Indicates whether to inherit route prefix.</param>
-        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Assembly assembly, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixOptions> configureOptions = null, bool inherit = true)
+        public static void AddControllerRoutePrefixConvention(this IList<IApplicationModelConvention> conventions, Assembly assembly, IEnumerable<string> routePrefixes, Action<ControllerRoutePrefixConventionOptions> configureOptions = null, bool inherit = true)
         {
             if (conventions == null)
             {
                 throw new ArgumentNullException(nameof(conventions));
             }
 
-            var options = new ControllerRoutePrefixOptions();
+            var options = new ControllerRoutePrefixConventionOptions();
             configureOptions?.Invoke(options);
 
             conventions.Add(new ControllerRoutePrefixConvention(
@@ -230,9 +230,7 @@ namespace Ogu.AspNetCore.Conventions
 
             conventions.Add(new ControllerAuthorizeConvention(
                 controllerType,
-                options.AuthenticationSchemes,
-                options.Policy,
-                options.Roles,
+                options,
                 inherit));
         }
 
@@ -262,9 +260,7 @@ namespace Ogu.AspNetCore.Conventions
 
             conventions.Add(new ControllerAuthorizeConvention(
                 types,
-                options.AuthenticationSchemes,
-                options.Policy,
-                options.Roles,
+                options,
                 inherit));
         }
 
@@ -287,9 +283,7 @@ namespace Ogu.AspNetCore.Conventions
 
             conventions.Add(new ControllerAuthorizeConvention(
                 assembly,
-                options.AuthenticationSchemes,
-                options.Policy,
-                options.Roles,
+                options,
                 inherit));
         }
 

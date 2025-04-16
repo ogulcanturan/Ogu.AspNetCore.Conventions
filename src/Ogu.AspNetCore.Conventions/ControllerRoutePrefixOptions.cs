@@ -6,7 +6,7 @@ namespace Ogu.AspNetCore.Conventions
     /// <summary>
     /// Represents options for configuring route prefixes in a controller.
     /// </summary>
-    public class ControllerRoutePrefixOptions
+    public class ControllerRoutePrefixConventionOptions
     {
         /// <summary>
         /// Gets or sets the strategy for combining routes.

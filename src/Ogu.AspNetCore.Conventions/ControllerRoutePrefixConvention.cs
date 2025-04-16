@@ -13,7 +13,7 @@ namespace Ogu.AspNetCore.Conventions
     public class ControllerRoutePrefixConvention : IControllerModelConvention
     {
         private readonly AttributeRouteModel[] _routePrefixes;
-        private readonly ControllerRoutePrefixOptions _routePrefixOptions;
+        private readonly ControllerRoutePrefixConventionOptions _routePrefixConventionOptions;
         private readonly HashSet<Type> _controllerTypes;
         private readonly bool _inherit;
 
@@ -22,22 +22,22 @@ namespace Ogu.AspNetCore.Conventions
         /// with a specified route prefix, combination strategy, and a single controller type.
         /// </summary>
         /// <param name="routePrefix">The route prefix to apply.</param>
-        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="routePrefixConventionOptions">The route prefix options.</param>
         /// <param name="controllerType">The controller type to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixOptions routePrefixOptions, Type controllerType, bool inherit = true)
-            : this(routePrefix, routePrefixOptions, new[] { controllerType }, inherit) { }
+        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, Type controllerType, bool inherit = true)
+            : this(routePrefix, routePrefixConventionOptions, new[] { controllerType }, inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
         /// with a specified route prefix, combination strategy, and a single controller type.
         /// </summary>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
-        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="routePrefixConventionOptions">The route prefix options.</param>
         /// <param name="controllerType">The controller type to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixOptions routePrefixOptions, Type controllerType, bool inherit = true)
-            : this(routePrefixes, routePrefixOptions, new[] { controllerType }, inherit) { }
+        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, Type controllerType, bool inherit = true)
+            : this(routePrefixes, routePrefixConventionOptions, new[] { controllerType }, inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
@@ -46,47 +46,47 @@ namespace Ogu.AspNetCore.Conventions
         /// <param name="routePrefix">The route prefix to apply.</param>
         /// <param name="assembly">The assembly containing controllers to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixOptions routePrefixOptions, Assembly assembly, bool inherit = true)
-            : this(routePrefix, routePrefixOptions, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
+        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, Assembly assembly, bool inherit = true)
+            : this(routePrefix, routePrefixConventionOptions, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
         /// with a specified route prefix, combination strategy, and all controllers in an assembly.
         /// </summary>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
-        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="routePrefixConventionOptions">The route prefix options.</param>
         /// <param name="assembly">The assembly containing controllers to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixOptions routePrefixOptions, Assembly assembly, bool inherit = true)
-            : this(routePrefixes, routePrefixOptions, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
+        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, Assembly assembly, bool inherit = true)
+            : this(routePrefixes, routePrefixConventionOptions, assembly.GetTypes().Where(type => type.GetCustomAttributes(typeof(ControllerAttribute)).Any()), inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
         /// with a specified route prefix, combination strategy, and multiple controller types.
         /// </summary>
         /// <param name="routePrefix">The route prefix to apply.</param>
-        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="routePrefixConventionOptions">The route prefix options.</param>
         /// <param name="controllerTypes">The collection of controller types to apply the route prefix to.</param>
         /// <param name="inherit">Indicates whether inherited controllers should also receive the prefix. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixOptions routePrefixOptions, IEnumerable<Type> controllerTypes,
+        public ControllerRoutePrefixConvention(string routePrefix, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, IEnumerable<Type> controllerTypes,
             bool inherit = true) : this(new[] { routePrefix },
-            routePrefixOptions, controllerTypes, inherit) { }
+            routePrefixConventionOptions, controllerTypes, inherit) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerRoutePrefixConvention"/> class
         /// with multiple route prefixes and controller types.
         /// </summary>
         /// <param name="routePrefixes">A collection of route prefixes to apply.</param>
-        /// <param name="routePrefixOptions">The route prefix options.</param>
+        /// <param name="routePrefixConventionOptions">The route prefix options.</param>
         /// <param name="controllerTypes">The controller types to apply the route prefixes to.</param>
         /// <param name="inherit">Whether to include inherited controllers. Default is <c>true</c>.</param>
-        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixOptions routePrefixOptions, IEnumerable<Type> controllerTypes, bool inherit = true)
+        public ControllerRoutePrefixConvention(IEnumerable<string> routePrefixes, ControllerRoutePrefixConventionOptions routePrefixConventionOptions, IEnumerable<Type> controllerTypes, bool inherit = true)
         {
             _routePrefixes = routePrefixes
                 .Select(prefix => new AttributeRouteModel(new RouteAttribute(prefix)))
                 .ToArray();
 
-            _routePrefixOptions = routePrefixOptions;
+            _routePrefixConventionOptions = routePrefixConventionOptions;
 
             _controllerTypes = new HashSet<Type>(controllerTypes);
             _inherit = inherit;
@@ -99,7 +99,7 @@ namespace Ogu.AspNetCore.Conventions
                 return;
             }
 
-            switch (_routePrefixOptions.ConventionStrategy)
+            switch (_routePrefixConventionOptions.ConventionStrategy)
             {
                 case RoutePrefixConventionStrategy.Add:
 
@@ -153,7 +153,7 @@ namespace Ogu.AspNetCore.Conventions
                     AttributeRouteModel = routePrefix
                 };
 
-                if (_routePrefixOptions.ShouldApplyTo(controller, selector))
+                if (_routePrefixConventionOptions.ShouldApplyTo(controller, selector))
                 {
                     controller.Selectors.Add(selector);
                 }
@@ -168,7 +168,7 @@ namespace Ogu.AspNetCore.Conventions
             {
                 var selector = controller.Selectors[i];
                 
-                if (selector.AttributeRouteModel != null && distinctPrefixes.Contains(selector.AttributeRouteModel.Template) && _routePrefixOptions.ShouldApplyTo(controller, selector))
+                if (selector.AttributeRouteModel != null && distinctPrefixes.Contains(selector.AttributeRouteModel.Template) && _routePrefixConventionOptions.ShouldApplyTo(controller, selector))
                 {
                     controller.Selectors.RemoveAt(i);
                 }
@@ -182,10 +182,10 @@ namespace Ogu.AspNetCore.Conventions
 
             foreach (var routePrefix in _routePrefixes)
             {
-                foreach (var selector in controller.Selectors.Where(sel => sel.AttributeRouteModel != null && _routePrefixOptions.ShouldApplyTo(controller, sel)))
+                foreach (var selector in controller.Selectors.Where(sel => sel.AttributeRouteModel != null && _routePrefixConventionOptions.ShouldApplyTo(controller, sel)))
                 {
                     selector.AttributeRouteModel =
-                        _routePrefixOptions.CombinationStrategy == RoutePrefixCombinationStrategy.Left
+                        _routePrefixConventionOptions.CombinationStrategy == RoutePrefixCombinationStrategy.Left
                             ? AttributeRouteModel.CombineAttributeRouteModel(routePrefix, selector.AttributeRouteModel)
                             : AttributeRouteModel.CombineAttributeRouteModel(selector.AttributeRouteModel, routePrefix);
 
