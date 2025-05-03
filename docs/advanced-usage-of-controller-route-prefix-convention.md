@@ -28,6 +28,18 @@ prefixOptions.ShouldApplyTo = (_, selector) =>
 This predicate determines whether the convention should apply to each route.  
 For example, only apply the convention if the route does *not* already contain a version prefix like `v1`, `v2`, etc.
 
+```csharp
+public static class VersionChecker
+    {
+        private static readonly Regex VersionRegex = new(@"\bv\d+\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        public static bool HasVersionPrefix(string input)
+        {
+            return VersionRegex.IsMatch(input);
+        }
+    }
+```
+
 ## Strategy: Remove
 
 Removes the `no-route` prefix from `NoRouteController`.
