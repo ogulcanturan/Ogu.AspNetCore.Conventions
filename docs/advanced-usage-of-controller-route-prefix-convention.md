@@ -30,14 +30,14 @@ For example, only apply the convention if the route does *not* already contain a
 
 ```csharp
 public static class VersionChecker
-    {
-        private static readonly Regex VersionRegex = new(@"\bv\d+\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+{
+    private static readonly Regex VersionRegex = new(@"\bv\d+\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        public static bool HasVersionPrefix(string input)
-        {
-            return VersionRegex.IsMatch(input);
-        }
+    public static bool HasVersionPrefix(string input)
+    {
+        return VersionRegex.IsMatch(input);
     }
+}
 ```
 
 ## Strategy: Remove
