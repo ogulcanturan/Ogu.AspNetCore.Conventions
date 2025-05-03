@@ -21,8 +21,11 @@ opts.Conventions.AddControllerRoutePrefixConvention(typeof(NoRouteController), "
 ## Controlling Application with ShouldApplyTo
 
 ```csharp
-prefixOptions.ShouldApplyTo = (_, selector) =>
-    !VersionChecker.HasVersionPrefix(selector.AttributeRouteModel!.Template);
+opts.Conventions.AddControllerRoutePrefixConvention(typeof(NoRouteController), "no-route", prefixOptions =>
+{
+    prefixOptions.ShouldApplyTo = (_, selector) => 
+        !VersionChecker.HasVersionPrefix(selector.AttributeRouteModel!.Template);
+});
 ```
 
 This predicate determines whether the convention should apply to each route.  
